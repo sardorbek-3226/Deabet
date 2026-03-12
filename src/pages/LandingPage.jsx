@@ -67,7 +67,7 @@ export default function LandingPage() {
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight bg-gradient-to-r from-purple-700 via-pink-600 to-orange-500 bg-clip-text text-transparent mb-6">
-            DiaNova — Sog‘lig‘ingiz nazorat ostida
+            DiaCare — Sog‘lig‘ingiz nazorat ostida
           </h1>
 
           <p className="text-gray-600 text-base md:text-lg mb-8 max-w-lg">

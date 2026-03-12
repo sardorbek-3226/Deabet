@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="w-10 h-10 bg-gradient-to-tr from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:rotate-6 transition-transform">
           <FaAppleAlt />
         </div>
-        <span className="font-black text-xl tracking-tighter text-slate-800">DeaNova</span>
+        <span className="font-black text-xl tracking-tighter text-slate-800">DiaCare</span>
       </Link>
 
       {/* Markaziy Linklar */}
