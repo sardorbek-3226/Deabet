@@ -39,7 +39,7 @@ export default function PricingPlans() {
       bg: "bg-gradient-to-br from-purple-600 to-indigo-700",
       text: "text-white",
       button: "bg-white text-purple-600 hover:bg-gray-100 shadow-lg",
-      route: "/doctorConsultation",
+      route: "/checkout",
       popular: true,
     },
   ];

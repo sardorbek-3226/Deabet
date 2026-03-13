@@ -13,6 +13,8 @@ import Mahsulotlar from "./pages/Mahsulotlar";
 import Premium from "./pages/Premium";
 import DoctorConsultation from "./pages/DoctorConsutatsion";
 import DoctorChat from "./pages/DoctorChat";
+import Checkout from "./pages/Checkout";
+import HealthDashboard from "./pages/HealthDashboard";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route path="/doctorConsultation" element={<DoctorConsultation />} />
           <Route path="/doctorChat" element={<DoctorChat />} />
           <Route path="/doctorChat/:id" element={<DoctorChat />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/health" element={<HealthDashboard />} /> 
         </Route>
       </Routes>
     </BrowserRouter>

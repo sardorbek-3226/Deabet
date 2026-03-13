@@ -3,7 +3,6 @@ import { FaUpload, FaPaperPlane, FaAppleAlt, FaRobot } from "react-icons/fa";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Navbar from "../components/Navbar";
 
-// API KEY (Google AI Studio'dan olingan)
 const GEN_AI_KEY = "AIzaSyBRbN0LsL4GrS2btwBVW13t5S7UFQnPbL4"; 
 const genAI = new GoogleGenerativeAI(GEN_AI_KEY);
 
