@@ -1,18 +1,21 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import { 
-  FaHeartbeat, FaAppleAlt, FaClipboardList, FaStar, FaDumbbell, FaClock, FaInfoCircle, FaUserMd 
+  FaHeartbeat, FaAppleAlt, FaClipboardList, FaStar, FaDumbbell, FaClock, FaUserMd 
 } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   const features = [
-    { title: "Qand Nazorati", description: "Kunlik qand darajangizni oson monitoring qiling.", icon: <FaHeartbeat />, color: "from-rose-400 to-red-500" },
-    { title: "Ovqat Rejasi", description: "AI yordamida shakllantirilgan shaxsiy parhez.", icon: <FaAppleAlt />, color: "from-amber-400 to-orange-500" },
-    { title: "Statistika", description: "Haftalik va oylik grafiklarni tahlil qiling.", icon: <FaClipboardList />, color: "from-blue-400 to-indigo-600" },
-    { title: "Premium Tavsiyalar", description: "Eksklyuziv diet va hayot tarzi tavsiyalari.", icon: <FaStar />, color: "from-yellow-400 to-amber-600" },
-    { title: "Jismoniy Faoliyat", description: "Har kuni moslashtirilgan mashqlarni bajaring.", icon: <FaDumbbell />, color: "from-emerald-400 to-teal-600" },
-    { title: "Kunlik Rutina", description: "Eslatmalar bilan tartibli hayot kechiring.", icon: <FaClock />, color: "from-violet-400 to-purple-600" },
+    { title: "Qand Nazorati", description: "Kunlik qand darajangizni monitoring qiling.", icon: <FaHeartbeat />, color: "from-rose-400 to-red-500", route: "/qand" },
+    { title: "Ovqat Rejasi", description: "AI yordamida shakllantirilgan shaxsiy parhez.", icon: <FaAppleAlt />, color: "from-amber-400 to-orange-500", route: "/ovqat" },
+    { title: "Statistika", description: "Haftalik va oylik grafiklarni tahlil qiling.", icon: <FaClipboardList />, color: "from-blue-400 to-indigo-600", route: "/insulin" },
+    { title: "Premium Tavsiyalar", description: "Eksklyuziv diet va hayot tarzi tavsiyalari.", icon: <FaStar />, color: "from-yellow-400 to-amber-600", route: "/premium" },
+    { title: "Jismoniy Faoliyat", description: "Har kuni moslashtirilgan mashqlarni bajaring.", icon: <FaDumbbell />, color: "from-emerald-400 to-teal-600", route: "/fitness" },
+    { title: "Kunlik Rutina", description: "Eslatmalar bilan tartibli hayot kechiring.", icon: <FaClock />, color: "from-violet-400 to-purple-600", route: "/test" },
   ];
 
   const tips = [
@@ -22,10 +25,13 @@ export default function Home() {
     "Uyqu va dam olishga e'tibor bering."
   ];
 
+
+
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-purple-200">
+      <Navbar />
+
       {/* Hero Section */}
-      <Navbar/>
       <header className="relative pt-16 pb-24 px-6 overflow-hidden text-center">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-purple-100/50 blur-[120px] rounded-full -z-10"></div>
         <motion.h1 
@@ -44,22 +50,22 @@ export default function Home() {
       {/* Features Section */}
       <section id="features" className="max-w-7xl mx-auto px-6 -mt-12">
         <h2 className="text-3xl font-bold text-purple-700 mb-8 text-center">Platforma imkoniyatlari</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f, i) => (
-            <motion.div 
-              whileHover={{ y: -10 }}
-              key={i}
-              className="group bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-purple-200/50 transition-all duration-300"
-            >
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((f, i) => (
+          <Link to={f.route} key={i} className="group">
+            <div className={`bg-white p-8 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer`}>
               <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center text-white text-2xl shadow-lg mb-6 group-hover:rotate-12 transition-transform`}>
                 {f.icon}
               </div>
-              <h3 className="text-xl font-bold mb-3 text-slate-800">{f.title}</h3>
-              <p className="text-slate-500 leading-relaxed">{f.description}</p>
-            </motion.div>
-          ))}
-        </div>
+              <h3 className="text-xl font-bold mb-3 text-gray-800">{f.title}</h3>
+              <p className="text-gray-500 leading-relaxed">{f.description}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
       </section>
+
+
 
       {/* Diabetes Info Section */}
       <section id="diabetes" className="max-w-5xl mx-auto my-24 px-6">
@@ -74,10 +80,10 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {tips.map((tip, idx) => (
-              <div key={idx} className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl flex items-center gap-4">
+              <motion.div key={idx} whileHover={{ scale: 1.03 }} className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl flex items-center gap-4">
                 <div className="w-8 h-8 bg-yellow-400 rounded-full flex-shrink-0 flex items-center justify-center text-slate-900 font-bold">!</div>
                 <p className="font-medium text-lg">{tip}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

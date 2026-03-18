@@ -57,11 +57,12 @@ const Navbar = () => {
     {
       to: "/health",
       label: "Salomatlik",
-      icon: <FaHeartbeat />,   // React Icons dan FaHeartbeat ishlatamiz
-      isPremium: true,         // agar faqat premium foydalanuvchilar ko‘rsa
+      icon: <FaHeartbeat />,
+      isPremium: true,
       tooltip: "Foydalanuvchi salomatligi haqidagi real-time ma’lumotlar",
     },
   ];
+
   return (
     <nav className="h-20 bg-white/90 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 px-4 md:px-10 flex items-center justify-between">
       {/* Logo */}
@@ -95,7 +96,7 @@ const Navbar = () => {
       </div>
 
       {/* Hamburger / Mobile Menu */}
-      <div className="lg:hidden flex items-center gap-4">
+      <div className="lg:hidden flex items-center gap-2">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="p-2 text-slate-700 hover:text-purple-600 transition"
@@ -104,8 +105,8 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Profile + Logout */}
-      <div className="hidden sm:flex items-center gap-4">
+      {/* Desktop Profile + Logout */}
+      <div className="hidden lg:flex items-center gap-4">
         <Link
           to="/profile"
           className="flex items-center gap-3 p-1 pr-3 bg-slate-50 hover:bg-purple-50 rounded-full border border-slate-100 transition group"
@@ -121,7 +122,7 @@ const Navbar = () => {
               <FaUserCircle size={24} />
             )}
           </div>
-          <div className="hidden sm:block text-left leading-none">
+          <div className="text-left leading-none">
             <p className="text-[13px] font-black text-slate-700 truncate max-w-[100px]">
               {userName}
             </p>
@@ -140,9 +141,10 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Mobile Dropdown */}
+      {/* Mobile Dropdown (navlinks + profile + logout) */}
       {menuOpen && (
         <div className="absolute top-20 left-0 w-full bg-white shadow-lg border-t border-slate-100 lg:hidden flex flex-col z-40">
+          {/* Nav Links */}
           {navLinks.map((link) => (
             <Link
               key={link.to}
@@ -160,6 +162,45 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
+
+          <div className="border-t border-slate-100 mt-1 pt-2 flex flex-col gap-2 px-6 pb-4">
+            {/* Mobile Profile */}
+            <Link
+              to="/profile"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-3 p-2 bg-slate-50 hover:bg-purple-50 rounded-full border border-slate-100 transition"
+            >
+              <div className="w-9 h-9 rounded-full bg-gradient-to-r from-purple-400 to-indigo-400 flex items-center justify-center text-white border-2 border-white shadow-sm overflow-hidden">
+                {JSON.parse(localStorage.getItem("profile"))?.avatar ? (
+                  <img
+                    src={JSON.parse(localStorage.getItem("profile")).avatar}
+                    alt="Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <FaUserCircle size={24} />
+                )}
+              </div>
+              <div className="text-left leading-none">
+                <p className="text-[13px] font-black text-slate-700 truncate max-w-[100px]">
+                  {userName}
+                </p>
+                <span className="text-[10px] text-purple-500 font-bold uppercase tracking-tighter">
+                  Online
+                </span>
+              </div>
+            </Link>
+
+            {/* Mobile Logout */}
+            <Link
+              to="/"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center justify-center p-3 bg-rose-50 text-rose-600 rounded-2xl hover:bg-rose-600 hover:text-white transition-all shadow-sm shadow-rose-100 mt-1"
+              title="Chiqish"
+            >
+              <FaSignOutAlt className="group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </div>
         </div>
       )}
     </nav>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserPlus, Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react";
 
 export default function Register() {
@@ -98,9 +98,9 @@ export default function Register() {
           </button>
         </form>
 
-        <p className="text-center text-gray-500 mt-8 text-sm font-bold uppercase tracking-tighter">
-          Profilingiz bormi? <span className="text-pink-600 cursor-pointer hover:text-orange-500 underline transition-colors">Kirish</span>
-        </p>
+          <p className="text-center text-gray-500 mt-8 text-sm font-bold uppercase tracking-tighter">
+            Profilingiz bormi? <Link to="/login" className="text-pink-600 cursor-pointer hover:text-orange-500 underline transition-colors">Kirish</Link>
+          </p>
       </div>
     </div>
   );

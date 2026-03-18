@@ -14,8 +14,9 @@ import Premium from "./pages/Premium";
 import DoctorConsultation from "./pages/DoctorConsutatsion";
 import DoctorChat from "./pages/DoctorChat";
 import Checkout from "./pages/Checkout";
-import HealthDashboard from "./pages/HealthDashboard";
-
+import QandPage from "./pages/QandPage";
+import TestPage from "./pages/TestPage";
+import InsulinPage from "./pages/InsulinPage";
 function App() {
   return (
     <BrowserRouter>
@@ -35,7 +36,9 @@ function App() {
           <Route path="/doctorChat" element={<DoctorChat />} />
           <Route path="/doctorChat/:id" element={<DoctorChat />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/health" element={<HealthDashboard />} /> 
+          <Route path="/qand" element={<QandPage />} /> 
+          <Route path="/insulin" element={<InsulinPage />} /> 
+          <Route path="/test" element={<TestPage />} /> 
         </Route>
       </Routes>
     </BrowserRouter>

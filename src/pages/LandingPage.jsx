@@ -1,46 +1,43 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  Sparkles,
+  ChevronRight,
+  Users,
+  ShieldCheck,
   Activity,
   Syringe,
   CalendarDays,
   Timer,
   Apple,
   HeartPulse,
-  ChevronRight,
-  Users,
-  ShieldCheck,
-  Sparkles
+  BarChart2,
+  Star,
+  Heart
 } from "lucide-react";
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
+  const highlights = [
+    { title: "Malakali Shifokorlar", desc: "Shifokorlar bilan hamkorlikda ishlab chiqilgan", icon: <Users /> },
+    { title: "AI Tavsiyalar", desc: "Individual ehtiyojlaringizga mos aqlli maslahatlar", icon: <ShieldCheck /> },
+    { title: "Sog‘liq Monitoring", desc: "Foydalanuvchi har kuni holatini kuzatadi", icon: <Sparkles /> },
+  ];
+
   const features = [
     { title: "Qand Nazorati", desc: "Real vaqt monitoring", icon: <Activity /> },
     { title: "Insulin Rejasi", desc: "Avtomatik hisob-kitob", icon: <Syringe /> },
-    { title: "Ovqat Jadvali", desc: "NB tizimi integratsiya", icon: <CalendarDays /> },
+    { title: "Ovqat Jadvali", desc: "AI tizimi integratsiya", icon: <CalendarDays /> },
     { title: "Kunlik Tartib", desc: "Reminder va ogohlantirish", icon: <Timer /> },
     { title: "Sog‘lom Ovqat", desc: "AI tavsiyalar", icon: <Apple /> },
     { title: "Sog‘liq Hisoboti", desc: "Grafik va statistika", icon: <HeartPulse /> },
   ];
 
-  const highlights = [
-    { 
-      title: "Malakali Shifokorlar", 
-      desc: "Saytimiz shifokorlar bilan hamkorlikda ishlab chiqilgan va ularning tavsiyalariga asoslanadi.", 
-      icon: <Users className="text-purple-600" /> 
-    },
-    { 
-      title: "AI Tavsiyalar", 
-      desc: "Sog‘liq va ovqatlanish bo‘yicha aqlli maslahatlar, individual ehtiyojlaringizga mos.", 
-      icon: <ShieldCheck className="text-pink-500" /> 
-    },
-    { 
-      title: "Sog‘liq Monitoring", 
-      desc: "Foydalanuvchi har kuni o‘z holatini kuzatib, statistikalar orqali oson boshqaradi.", 
-      icon: <Sparkles className="text-orange-500" /> 
-    },
+  const extraFeatures = [
+    { title: "Progress Tracking", desc: "Haftalik va oylik statistikalar", icon: <BarChart2 /> },
+    { title: "Favourite Meals", desc: "Sevimli ovqatlaringizni tez qo‘shish", icon: <Star /> },
+    { title: "Health Insights", desc: "AI tahlil orqali maslahatlar", icon: <Heart /> },
   ];
 
   const yourJourney = [
@@ -50,38 +47,36 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-pink-50 via-purple-50 to-orange-50 flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-pink-50 via-purple-50 to-orange-50 relative overflow-hidden">
 
-      {/* BACKGROUND BLURS */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-pink-300 rounded-full blur-3xl opacity-30 -z-10 animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-purple-300 rounded-full blur-3xl opacity-30 -z-10"></div>
+      {/* Background Blurs */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-pink-300 rounded-full blur-3xl opacity-30 animate-pulse-slow"></div>
+      <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-purple-300 rounded-full blur-3xl opacity-30 animate-pulse-slow"></div>
 
       {/* HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 flex-1 flex flex-col justify-center lg:grid lg:grid-cols-2 lg:items-center gap-12 z-10">
-        <div className="flex flex-col justify-center max-w-lg mx-auto lg:mx-0">
-          <div className="flex items-center gap-3 mb-4">
-            <Sparkles className="text-pink-500" />
-            <span className="uppercase text-sm font-bold text-gray-500">
-              Zamonaviy Diabet Monitoring
-            </span>
+      <section className="max-w-7xl mx-auto px-6 py-24 flex flex-col lg:flex-row gap-12 items-center">
+        {/* LEFT HERO */}
+        <div className="flex-1 flex flex-col gap-6 animate-fade-in">
+          <div className="flex items-center gap-2">
+            <Sparkles className="text-pink-500 animate-pulse-slow" />
+            <span className="uppercase text-sm font-bold text-gray-500">Zamonaviy Diabet Monitoring</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight bg-gradient-to-r from-purple-700 via-pink-600 to-orange-500 bg-clip-text text-transparent mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-purple-700 via-pink-600 to-orange-500 bg-clip-text text-transparent animate-gradient-text">
             DiaCare — Sog‘lig‘ingiz nazorat ostida
           </h1>
 
-          <p className="text-gray-600 text-base md:text-lg mb-8 max-w-lg">
-            Qon shakarini kuzating, insulin rejangizni boshqaring va
-            sog‘lom hayot tarzini oson yo‘lga qo‘ying.
+          <p className="text-gray-600 text-base md:text-lg">
+            Qon shakarini kuzating, insulin rejangizni boshqaring va sog‘lom hayot tarzini oson yo‘lga qo‘ying.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-12">
+          <div className="flex gap-4 mt-6">
             <button
               onClick={() => navigate("/register")}
-              className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-white font-bold rounded-2xl shadow-xl hover:scale-105 transition-all"
+              className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-white font-bold rounded-2xl shadow-xl hover:scale-105 transition-all"
             >
               Boshlash
-              <ChevronRight className="group-hover:translate-x-1 transition" />
+              <ChevronRight className="group-hover:translate-x-1 transition"/>
             </button>
 
             <button
@@ -91,39 +86,17 @@ export default function LandingPage() {
               Kirish
             </button>
           </div>
-
-          {/* STATS */}
-          <div className="flex flex-wrap gap-8">
-            <div>
-              <p className="text-2xl md:text-3xl font-black text-purple-700">1,200+</p>
-              <p className="text-gray-500 text-sm">Foydalanuvchi</p>
-            </div>
-            <div>
-              <p className="text-2xl md:text-3xl font-black text-pink-600">98%</p>
-              <p className="text-gray-500 text-sm">Qoniqish</p>
-            </div>
-            <div>
-              <p className="text-2xl md:text-3xl font-black text-orange-500">24/7</p>
-              <p className="text-gray-500 text-sm">Monitoring</p>
-            </div>
-          </div>
         </div>
 
-        {/* YOUR JOURNEY CARD */}
-        <div className="bg-white/70 backdrop-blur-lg rounded-[3rem] p-10 shadow-2xl border border-white">
-          <h3 className="text-xl font-black mb-6 text-gray-700">
-            Sizning sog‘lom hayot yo‘lingiz
-          </h3>
-
+        {/* RIGHT HERO CARD */}
+        <div className="flex-1 bg-white/70 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white animate-fade-in-delay">
+          <h3 className="text-xl font-black mb-6 text-gray-700">Sizning sog‘lom hayot yo‘lingiz</h3>
           <div className="grid gap-4">
-            {yourJourney.map((item, index) => (
-              <div 
-                key={index} 
-                className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4 p-4 bg-white/30 rounded-xl min-h-[60px]"
-              >
+            {yourJourney.map((item, i) => (
+              <div key={i} className="flex items-center justify-between p-4 bg-white/30 rounded-xl hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gradient-to-tr from-orange-400 to-pink-500 text-white rounded-full flex items-center justify-center">
-                    {React.cloneElement(item.icon, { size: 20 })}
+                    {item.icon}
                   </div>
                   <span className="font-medium text-gray-600">{item.title}</span>
                 </div>
@@ -134,34 +107,72 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* HIGHLIGHT SECTION */}
-    {/* HIGHLIGHTS + FEATURES COMBINED GRID */}
-<section className="max-w-7xl mx-auto px-6 pb-24 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr z-10">
-  {[...highlights, ...features].map((item, index) => (
-    <div
-      key={index}
-      className="group bg-white/70 backdrop-blur-md p-6 md:p-8 rounded-3xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between h-full"
-    >
-      {/* Icon */}
-      <div className={`w-14 h-14 flex items-center justify-center mb-4 rounded-2xl ${
-        index < highlights.length 
-          ? "bg-gradient-to-tr from-purple-500 to-pink-500 text-white"
-          : "bg-gradient-to-tr from-orange-400 to-pink-500 text-white"
-      }`}>
-        {React.cloneElement(item.icon, { size: 28 })}
-      </div>
+      {/* HIGHLIGHTS + FEATURES GRID */}
+      <section className="max-w-7xl mx-auto px-6 pb-24 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[...highlights, ...features].map((item, index) => (
+          <div key={index} className="bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-md flex flex-col items-start gap-4 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+            <div className={`w-14 h-14 flex items-center justify-center rounded-2xl ${
+              index < highlights.length ? "bg-gradient-to-tr from-purple-500 to-pink-500 text-white" : "bg-gradient-to-tr from-orange-400 to-pink-500 text-white"
+            }`}>
+              {item.icon}
+            </div>
+            <h3 className="text-lg font-bold text-gray-800">{item.title}</h3>
+            <p className="text-gray-500 text-sm">{item.desc}</p>
+          </div>
+        ))}
+      </section>
 
-      {/* Title & Description */}
-      <h3 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h3>
-      <p className="text-gray-500 text-sm">{item.desc}</p>
-    </div>
-  ))}
-</section>
+      {/* EXTRA FEATURES */}
+      <section className="max-w-7xl mx-auto px-6 pb-20">
+        <h2 className="text-3xl font-black text-purple-700 mb-8 text-center">Qo‘shimcha Funksiyalar</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {extraFeatures.map((item, i) => (
+            <div key={i} className="p-6 bg-gradient-to-tr from-purple-400 to-pink-400 text-white rounded-3xl shadow-xl flex flex-col gap-4 hover:scale-105 transition-all duration-500">
+              <div className="text-3xl">{item.icon}</div>
+              <h3 className="font-bold text-lg">{item.title}</h3>
+              <p className="text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="max-w-5xl mx-auto px-6 pb-24 text-center">
+        <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 p-10 rounded-3xl text-white shadow-2xl hover:scale-105 transition-all duration-500">
+          <h2 className="text-3xl font-black mb-4">Sog‘lig‘ingizni nazorat qiling</h2>
+          <p className="mb-6">DiaCare bilan sog‘lom hayot boshlang</p>
+          <button
+            onClick={() => navigate("/register")}
+            className="px-8 py-4 bg-white text-purple-700 rounded-2xl font-bold hover:scale-105 transition-all"
+          >
+            Boshlash
+          </button>
+        </div>
+      </section>
 
       {/* FOOTER */}
-      <footer className="text-center py-10 text-gray-400 text-sm z-10">
+      <footer className="text-center py-10 text-gray-400 text-sm">
         © 2026 DiaNova — Barcha huquqlar himoyalangan
       </footer>
+
+      {/* Tailwind Animations */}
+      <style>{`
+        @keyframes pulse-slow {
+          0%, 100% { transform: scale(1); opacity: 0.3; }
+          50% { transform: scale(1.1); opacity: 0.5; }
+        }
+        .animate-pulse-slow { animation: pulse-slow 6s infinite; }
+
+        @keyframes gradient-text {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .animate-gradient-text { background-size: 200% 200%; animation: gradient-text 5s ease infinite; }
+
+        @keyframes fade-in { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fade-in 1s ease forwards; }
+        .animate-fade-in-delay { animation: fade-in 1s ease forwards; animation-delay: 0.5s; }
+      `}</style>
     </div>
   );
 }
