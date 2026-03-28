@@ -152,7 +152,7 @@ export default function LandingPage() {
 
       {/* FOOTER */}
       <footer className="text-center py-10 text-gray-400 text-sm">
-        © 2026 DiaNova — Barcha huquqlar himoyalangan
+        © 2026 DiaCare — Barcha huquqlar himoyalangan
       </footer>
 
       {/* Tailwind Animations */}

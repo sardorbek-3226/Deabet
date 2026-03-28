@@ -39,10 +39,10 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           className="text-5xl md:text-6xl font-black tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600"
         >
-          DiaNova <span className="text-purple-600">Sog'lig'ingizni qo'lingizda</span>
+          DiaCare <span className="text-purple-600">Sog'lig'ingizni qo'lingizda</span>
         </motion.h1>
         <p className="max-w-2xl mx-auto text-lg text-slate-500 leading-relaxed">
-          DiaNova — bu sizning shaxsiy diabet monitoring va sog'lom turmush tarzini qo‘llab-quvvatlaydigan platformangiz.  
+          DiaCare — bu sizning shaxsiy diabet monitoring va sog'lom turmush tarzini qo‘llab-quvvatlaydigan platformangiz.  
           Qand nazorati, ovqat rejalari va maslahatlar bilan har kuni sog'lom turmushni boshqaring.
         </p>
       </header>
@@ -96,7 +96,7 @@ export default function Home() {
           <a href="#">Yordam</a>
           <a href="#">Aloqa</a>
         </div>
-        <p>© 2026 DiaNova. Hamma narsa siz uchun yaratildi.</p>
+        <p>© 2026 DiaCare. Hamma narsa siz uchun yaratildi.</p>
       </footer>
     </div>
   );

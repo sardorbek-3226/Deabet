@@ -12,6 +12,7 @@ import {
   FaBars,
   FaTimes,
   FaHeartbeat,
+  FaExclamationTriangle,
 } from "react-icons/fa";
 
 const Navbar = () => {
@@ -44,7 +45,6 @@ const Navbar = () => {
   const navLinks = [
     { to: "/home", label: "Haqida", icon: <FaHome /> },
     { to: "/chatbot", label: "ChatBot", icon: <FaComments /> },
-    { to: "/video", label: "Video", icon: <FaVideo /> },
     { to: "/products", label: "Mahsulotlar", icon: <FaAppleAlt /> },
     { to: "/premium", label: "Premium", icon: <FaStar />, isPremium: true },
     {
@@ -55,12 +55,13 @@ const Navbar = () => {
       tooltip: "Demo available – full access with subscription",
     },
     {
-      to: "/health",
+      to: "/salomatlik",
       label: "Salomatlik",
       icon: <FaHeartbeat />,
       isPremium: true,
       tooltip: "Foydalanuvchi salomatligi haqidagi real-time ma’lumotlar",
     },
+    { label: "Favqulodda", to: "/favqulot", icon: <FaExclamationTriangle /> },
   ];
 
   return (

@@ -7,7 +7,6 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import ChatBot from "./pages/Chatbot";
-import Video from "./pages/Video";
 import ProfileCard from "./pages/Profile";
 import Mahsulotlar from "./pages/Mahsulotlar";
 import Premium from "./pages/Premium";
@@ -17,6 +16,8 @@ import Checkout from "./pages/Checkout";
 import QandPage from "./pages/QandPage";
 import TestPage from "./pages/TestPage";
 import InsulinPage from "./pages/InsulinPage";
+import HealthPage from "./pages/HealthPage";
+import EmergencyHealthPage from "./pages/EmergencyHealthPage";
 function App() {
   return (
     <BrowserRouter>
@@ -28,8 +29,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/home" element={<Home />} />
           <Route path="/chatbot" element={<ChatBot />} />
-          <Route path="/video" element={<Video />} />
-          <Route path="/profile" element={<ProfileCard />} />
           <Route path="/products" element={<Mahsulotlar />} />
           <Route path="/premium" element={<Premium />} />
           <Route path="/doctorConsultation" element={<DoctorConsultation />} />
@@ -38,7 +37,8 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/qand" element={<QandPage />} /> 
           <Route path="/insulin" element={<InsulinPage />} /> 
-          <Route path="/test" element={<TestPage />} /> 
+          <Route path="/salomatlik" element={<HealthPage />} />
+          <Route path="/favqulot" element={<EmergencyHealthPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

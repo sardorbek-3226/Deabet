@@ -202,7 +202,7 @@ export default function ProductsPage() {
       </div>
 
       <footer className="text-center py-10 text-gray-400 text-sm">
-        &copy; 2026 DiaNova - Sog'liqni saqlash platformasi
+        &copy; 2026 DiaCare - Sog'liqni saqlash platformasi
       </footer>
     </div>
   );

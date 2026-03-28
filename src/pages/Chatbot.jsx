@@ -108,7 +108,7 @@ export default function ChatBot() {
               <FaRobot size={20} />
             </div>
             <div>
-              <h2 className="font-bold text-gray-800 text-lg">DiaNova AI Assistant</h2>
+              <h2 className="font-bold text-gray-800 text-lg">DiaCare AI Assistant</h2>
               <p className="text-xs text-green-500 font-medium flex items-center gap-1">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Onlayn
               </p>
