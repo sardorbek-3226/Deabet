@@ -18,6 +18,7 @@ import TestPage from "./pages/TestPage";
 import InsulinPage from "./pages/InsulinPage";
 import HealthPage from "./pages/HealthPage";
 import EmergencyHealthPage from "./pages/EmergencyHealthPage";
+import Profile from "./pages/Profile";
 function App() {
   return (
     <BrowserRouter>
@@ -39,6 +40,7 @@ function App() {
           <Route path="/insulin" element={<InsulinPage />} /> 
           <Route path="/salomatlik" element={<HealthPage />} />
           <Route path="/favqulot" element={<EmergencyHealthPage />} />
+          <Route path="/profile" element={<Profile/>} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -71,7 +71,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDFCFE] text-slate-900 pb-20">
+    <div className="min-h-screen bg-[#FDFCFE] text-slate-900 pb-20 mt-20">
       {/* <Navbar /> */}
       <Navbar/>
       <main className="max-w-7xl mx-auto p-4 md:p-10 space-y-10">

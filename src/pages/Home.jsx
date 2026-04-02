@@ -32,7 +32,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <header className="relative pt-16 pb-24 px-6 overflow-hidden text-center">
+      <header className="relative mt-10 pt-16 pb-24 px-6 overflow-hidden text-center">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-purple-100/50 blur-[120px] rounded-full -z-10"></div>
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}

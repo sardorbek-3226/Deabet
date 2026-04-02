@@ -1,151 +1,153 @@
-import React, { useState } from "react";
-import { FaAppleAlt, FaBars, FaComments, FaHome, FaTimes, FaVideo, FaSearch, FaWeightHanging, FaFireAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar"
-// --- Mahsulotlar Ma'lumotlari ---
+import React, { useState, useEffect } from "react";
+import { FaAppleAlt, FaSearch, FaWeightHanging, FaFireAlt, FaFilter } from "react-icons/fa";
+import Navbar from "../components/Navbar";
+
+// --- Mahsulotlar Ma'lumotlari (O'zgarishsiz qoldi) ---
 const categories = {
   dukkaklik: [
-    { name: "Quritilgan dukkaklilar (loviya, noʻxat, mosh)", nb: "1 osh qoshiq", weight: "20 g" },
-    { name: "Gaynatilgan dukkaklilar", nb: "3 osh qoshiq", weight: "50 g" },
-    { name: "Poʻstisiz pishirilgan kartoshka", nb: "1 dona", weight: "75 g" },
-    { name: "Xom yoki pishirilgan kartoshka", nb: "1 dona", weight: "65 g" },
-    { name: "Kartoshka pyuresi", nb: "2 osh qoshiq", weight: "75 g" },
-    { name: "Qovurilgan kartoshka", nb: "1.5–2 osh qoshiq", weight: "35 g" },
-    { name: "Kartoshka Fri", nb: "12 bo‘lak", weight: "35 g" },
-    { name: "Kartoshkali chips", nb: "1 kichik o‘ram", weight: "25 g" },
-    { name: "Jo‘xori (so‘tasi)", nb: "0.5 dona", weight: "100 g" },
-    { name: "Konservalangan jo‘xori", nb: "3 osh qoshiq", weight: "70 g" },
-    { name: "Gaynatilgan jo‘xori", nb: "3 osh qoshiq", weight: "50 g" },
-    { name: "Jo‘xori bodrogi", nb: "4 osh qoshiq", weight: "15 g" },
-    { name: "Sabzi", nb: "3 ta katta sabzi", weight: "400 g" },
-    { name: "Lavlagi", nb: "2 ta katta lavlagi", weight: "400 g" },
-    { name: "Gaynatilgan loviya", nb: "3 osh qoshiq", weight: "50 g" },
-    { name: "Gaynatilgan chechevitsa", nb: "2 osh qoshiq to‘la", weight: "50 g" },
-    { name: "Qovoq", nb: "-", weight: "200 g" },
-    { name: "Ketchup", nb: "2–3 osh qoshiq", weight: "30–50 g" },
-    { name: "Topinambur", nb: "-", weight: "70 g" },
-    { name: "Soya (quritilgan)", nb: "4 osh qoshiq", weight: "45 g" },
+    { name: "Quritilgan loviya, noʻxat, mosh", nb: "1 osh qoshiq", weight: "20 g", icon: "🫘" },
+    { name: "Qaynatilgan dukkaklilar", nb: "3 osh qoshiq", weight: "50 g", icon: "🍲" },
+    { name: "Pishirilgan kartoshka (po'stisiz)", nb: "1 dona (tuxumdek)", weight: "75 g", icon: "🥔" },
+    { name: "Kartoshka pyuresi", nb: "2 osh qoshiq", weight: "75 g", icon: "🥣" },
+    { name: "Qovurilgan kartoshka", nb: "1.5–2 osh qoshiq", weight: "35 g", icon: "🍳" },
+    { name: "Kartoshka Fri", nb: "12 bo‘lak", weight: "35 g", icon: "🍟" },
+    { name: "Kartoshkali chips", nb: "1 kichik o‘ram", weight: "25 g", icon: "🥨" },
+    { name: "Jo‘xori (so‘tasi)", nb: "0.5 dona", weight: "100 g", icon: "🌽" },
+    { name: "Konservalangan jo‘xori", nb: "3 osh qoshiq", weight: "70 g", icon: "🥫" },
+    { name: "Jo‘xori bodrogi (Popkorn)", nb: "4 osh qoshiq", weight: "15 g", icon: "🍿" },
+    { name: "Sabzi", nb: "3 ta katta sabzi", weight: "400 g", icon: "🥕" },
+    { name: "Lavlagi", nb: "2 ta katta lavlagi", weight: "400 g", icon: "🥗" },
+    { name: "Qaynatilgan chechevitsa (yashil)", nb: "2 osh qoshiq", weight: "50 g", icon: "🍲" },
+    { name: "Qovoq (pishgan)", nb: "1 bo'lak", weight: "200 g", icon: "🎃" },
+    { name: "Soya (quritilgan)", nb: "4 osh qoshiq", weight: "45 g", icon: "🌱" },
   ],
   nonlik: [
-    { name: "Oddiy non", nb: "1 bo‘lak", weight: "35 g" },
-    { name: "Javdar unidan tayyorlangan non", nb: "1 bo‘lak", weight: "20 g" },
-    { name: "Oq, kulcha non", nb: "1 bo‘lak", weight: "25 g" },
-    { name: "Qora non", nb: "1 bo‘lak", weight: "30 g" },
-    { name: "Kepakli non", nb: "1 bo‘lak", weight: "25 g" },
-    { name: "Quritilgan non to‘g‘ralari", nb: "2 dona", weight: "20 g" },
-    { name: "Nonli bo‘yoqchalar", nb: "Hajmiga qarab", weight: "20 g" },
-    { name: "Shirin bo‘lmagan gotirligan non", nb: "2 dona", weight: "20 g" },
-    { name: "Shirin bo‘lmagan teshik kulcha", nb: "1.5–2 dona", weight: "20 g" },
-    { name: "Kreker", nb: "2 dona", weight: "20 g" },
-    { name: "Muzlatilgan oshirma xamir", nb: "-", weight: "35 g" },
-    { name: "Yupqa qaymoq", nb: "1 katta", weight: "30 g" },
-    { name: "Tvorogli qaymoq", nb: "1 dona", weight: "50 g" },
-    { name: "Go‘shtli qaymoq", nb: "1 dona", weight: "50 g" },
-    { name: "Tvorogli varenik", nb: "4 dona", weight: "50 g" },
-    { name: "Chuchvara", nb: "4 dona", weight: "50 g" },
-    { name: "Paramach", nb: "1 dona", weight: "50 g" },
-    { name: "Vafli maydasi", nb: "1 dona", weight: "50 g" },
-    { name: "Un", nb: "1 osh qoshiq to‘la", weight: "15 g" },
-    { name: "Pryanik", nb: "1/2 dona", weight: "40 g" },
-    { name: "Olad’", nb: "1 o‘rtacha", weight: "30 g" },
-    { name: "Quritilgan gotirligan non", nb: "1 osh qoshiq to‘la", weight: "15 g" },
-    { name: "Pechene (qaymoqli)", nb: "1–2 dona", weight: "15 g" },
-    { name: "Yormalar (krupa)", nb: "1 osh qoshiq to‘la", weight: "15 g" },
-    { name: "Xom guruch", nb: "1 osh qoshiq to‘la", weight: "15 g" },
+    { name: "Oddiy non (Oq)", nb: "1 bo‘lak", weight: "25-30 g", icon: "🍞" },
+    { name: "Qora non (Javdar)", nb: "1 bo‘lak", weight: "30 g", icon: "🍞" },
+    { name: "Kepakli non", nb: "1 bo‘lak", weight: "25 g", icon: "🌾" },
+    { name: "Suxari (Quritilgan non)", nb: "2 dona", weight: "20 g", icon: "🥖" },
+    { name: "Kreker (shirin bo'lmagan)", nb: "5-6 dona", weight: "20 g", icon: "🍪" },
+    { name: "Chuchvara (tayyor pishgan)", nb: "4-5 dona", weight: "50 g", icon: "🥟" },
+    { name: "Manti (o'rtacha)", nb: "1 dona", weight: "50 g", icon: "🥟" },
+    { name: "Somsa (kichik xamirli)", nb: "0.5 dona", weight: "40 g", icon: "🥐" },
+    { name: "Un (har qanday navli)", nb: "1 osh qoshiq", weight: "15 g", icon: "🥡" },
+    { name: "Guruch (pishirilgan)", nb: "2 osh qoshiq", weight: "50 g", icon: "🍚" },
+    { name: "Grechka (pishirilgan)", nb: "2 osh qoshiq", weight: "50 g", icon: "🥣" },
+    { name: "Makaron (pishirilgan)", nb: "3 osh qoshiq", weight: "50 g", icon: "🍝" },
+    { name: "Manna yormasi (pishgan)", nb: "2 osh qoshiq", weight: "50 g", icon: "🥣" },
+    { name: "Suli yormasi (Ovsyanika)", nb: "2 osh qoshiq", weight: "50 g", icon: "🥣" },
   ],
   mevaSabzavot: [
-    { name: "Aprikos (O'rik)", nb: "2 dona", weight: "100 g" },
-    { name: "Avokado", nb: "1 dona", weight: "200 g" },
-    { name: "Behi", nb: "1 dona", weight: "140 g" },
-    { name: "Olcha", nb: "4 dona", weight: "140 g" },
-    { name: "Ananas", nb: "1 kichik bo'lak", weight: "130 g" },
-    { name: "Apelsin", nb: "1 dona", weight: "270 g" },
-    { name: "Tarvuz", nb: "1 bo‘lak", weight: "70 g" },
-    { name: "Banan", nb: "½ dona", weight: "80 g" },
-    { name: "Uzum", nb: "10 dona", weight: "90 g" },
-    { name: "Greypfrut", nb: "½ dona", weight: "100 g" },
-    { name: "Nok", nb: "1 dona", weight: "100 g" },
-    { name: "Qovun", nb: "1 bo‘lak", weight: "140 g" },
-    { name: "Maymunjon (Anjir)", nb: "1 dona", weight: "110 g" },
-    { name: "Kivi", nb: "1 dona", weight: "160 g" },
+    { name: "Olma (o'rtacha)", nb: "1 dona", weight: "100 g", icon: "🍎" },
+    { name: "Banan (po'stisiz)", nb: "0.5 dona", weight: "70 g", icon: "🍌" },
+    { name: "O'rik (Aprikos)", nb: "2-3 dona", weight: "110 g", icon: "🍑" },
+    { name: "Behi (o'rtacha)", nb: "1 dona", weight: "140 g", icon: "🍏" },
+    { name: "Olcha / Gilos", nb: "10-12 dona", weight: "100 g", icon: "🍒" },
+    { name: "Apelsin", nb: "1 dona", weight: "150 g", icon: "🍊" },
+    { name: "Mandarin", nb: "2-3 dona", weight: "150 g", icon: "🍊" },
+    { name: "Tarvuz", nb: "1 katta bo‘lak", weight: "250 g", icon: "🍉" },
+    { name: "Qovun", nb: "1 o'rtacha bo‘lak", weight: "150 g", icon: "🍈" },
+    { name: "Uzum", nb: "10-12 dona", weight: "70 g", icon: "🍇" },
+    { name: "Nok (o'rtacha)", nb: "1 dona", weight: "100 g", icon: "🍐" },
+    { name: "Kivi", nb: "1 dona", weight: "110 g", icon: "🥝" },
+    { name: "Anor", nb: "0.5 dona", weight: "150 g", icon: "🍎" },
+    { name: "Anjir (yangi)", nb: "1 dona", weight: "80 g", icon: "🫐" },
+    { name: "Qulupnay", nb: "10-12 dona", weight: "150 g", icon: "🍓" },
+    { name: "Shaftoli", nb: "1 dona", weight: "120 g", icon: "🍑" },
   ],
   quritilgan: [
-    { name: "Bahor mevasi (quritilgan)", nb: "1 dona", weight: "-" },
-    { name: "Mayiz", nb: "10 dona", weight: "-" },
-    { name: "Anjir (quritilgan)", nb: "1 dona", weight: "-" },
-    { name: "Turonak (dana)", nb: "3 dona", weight: "-" },
-    { name: "Xurmo (quritilgan)", nb: "2 dona", weight: "-" },
-    { name: "Qizil olxo‘ri qoqi", nb: "3 dona", weight: "-" },
-    { name: "Yong‘oqlar (umumiy)", nb: "1 osh qoshiq", weight: "-" },
-    { name: "Yer yong‘og‘i", nb: "1/4 stakan", weight: "-" },
-    { name: "Bodom", nb: "3/4 stakan", weight: "-" },
-    { name: "Pista (handon)", nb: "1/2 stakan", weight: "-" },
+    { name: "Mayiz", nb: "1 osh qoshiq", weight: "20 g", icon: "🍇" },
+    { name: "Turshak (Quritilgan o'rik)", nb: "3 dona", weight: "20 g", icon: "🍑" },
+    { name: "Xurmo qoqi (Finiq)", nb: "2 dona", weight: "20 g", icon: "🌴" },
+    { name: "Anjir qoqi", nb: "1 dona", weight: "20 g", icon: "🛖" },
+    { name: "Olxo'ri qoqi", nb: "3 dona", weight: "25 g", icon: "🟣" },
+    { name: "Yong'oq mag'zi", nb: "30-40 g", weight: "40 g", icon: "🥜" },
+    { name: "Bodom", nb: "20-25 dona", weight: "30 g", icon: "🌰" },
+    { name: "Pista (Handon)", nb: "1 hovuch", weight: "30 g", icon: "🥜" },
+    { name: "Yer yong'oq", nb: "1 hovuch", weight: "30 g", icon: "🥜" },
   ],
   shirinlik: [
-    { name: "Shakarli murabbo", nb: "1 osh qoshiq", weight: "-", calories: "10.0" },
-    { name: "Gazlangan ichimliklar", nb: "½ stakan", weight: "-", calories: "100.0" },
-    { name: "Karamel", nb: "4–6 dona", weight: "-", calories: "-" },
-    { name: "Kvas", nb: "1 stakan", weight: "-", calories: "250.0" },
-    { name: "Kisel", nb: "1 stakan", weight: "-", calories: "250.0" },
-    { name: "Kompot", nb: "1 stakan", weight: "-", calories: "16.9" },
-    { name: "Shokoladli konfet", nb: "1 dona", weight: "10–12 g" },
-    { name: "Asal", nb: "2 bo‘lak", weight: "10 g" },
-    { name: "Novvot", nb: "1 choy qoshiq", weight: "15 g" },
-    { name: "Sumalak", nb: "1 osh qoshiq", weight: "10 g" },
-    { name: "Shakar qumi", nb: "1 osh qoshiq", weight: "12 g" },
-    { name: "Shokolad", nb: "3 bo'lak", weight: "30 g" },
+    { name: "Shakar (qum shakar)", nb: "1 osh qoshiq", weight: "12 g", calories: "48", icon: "🍭" },
+    { name: "Raffinad shakar", nb: "2 bo'lak", weight: "10 g", calories: "40", icon: "🧊" },
+    { name: "Asal", nb: "1 choy qoshiq", weight: "12 g", calories: "35", icon: "🍯" },
+    { name: "Shokolad (achchiq)", nb: "2 bo'lak (20g)", weight: "20 g", calories: "110", icon: "🍫" },
+    { name: "Sutli shokolad", nb: "1.5 bo'lak", weight: "15 g", calories: "85", icon: "🍫" },
+    { name: "Muzqaymoq (plombir)", nb: "1 dona (kichik)", weight: "60 g", calories: "150", icon: "🍦" },
+    { name: "Gazlangan ichimlik (Cola/Pepsi)", nb: "100 ml", weight: "-", calories: "42", icon: "🥤" },
+    { name: "Meva sharbati (tabiiy)", nb: "100 ml", weight: "-", calories: "45", icon: "🧃" },
+    { name: "Vafli", nb: "1 dona", weight: "20 g", calories: "100", icon: "🧇" },
+    { name: "Pechene (oddiy)", nb: "2 dona", weight: "20 g", calories: "90", icon: "🍪" },
+    { name: "Kisel / Kompot (shakarli)", nb: "1 stakan", weight: "-", calories: "100", icon: "🍹" },
   ],
+};
+const categoryLabels = {
+  all: "Hammasi",
+  dukkaklik: "Dukkakliklar",
+  nonlik: "Nonlar",
+  mevaSabzavot: "Mevalar",
+  quritilgan: "Quritilganlar",
+  shirinlik: "Shirinliklar",
 };
 
 export default function ProductsPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState("all");
 
-  const renderSection = (title, items) => {
+  // Har bir bo'limni chizish funksiyasi
+  const renderSection = (id, title, items) => {
     const filtered = items.filter((item) =>
       item.name.toLowerCase().includes(search.toLowerCase())
     );
 
     if (filtered.length === 0) return null;
+    if (activeTab !== "all" && activeTab !== id) return null;
 
     return (
-      <div className="mb-12">
-        <h2 className="text-2xl font-extrabold text-gray-800 mb-6 border-l-4 border-purple-600 pl-4">
+      <div key={id} className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <h2 className="text-2xl font-black text-slate-800 mb-6 flex items-center gap-3">
+          <span className="w-2 h-8 bg-purple-600 rounded-full"></span>
           {title}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filtered.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group flex flex-col justify-between"
+              className="bg-white rounded-3xl p-6 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-slate-100 group relative overflow-hidden"
             >
-              <div>
-                <h3 className="font-bold text-gray-800 text-lg mb-2 group-hover:text-purple-600 transition-colors">
+              {/* Orqa fon uchun dekorativ nur */}
+              <div className="absolute -right-4 -top-4 w-20 h-20 bg-purple-50 rounded-full group-hover:scale-[3] transition-transform duration-700 opacity-50"></div>
+              
+              <div className="relative z-10">
+                <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300 drop-shadow-sm">
+                  {item.icon || "🥗"}
+                </div>
+                <h3 className="font-extrabold text-slate-800 text-lg mb-4 group-hover:text-purple-600 transition-colors leading-tight">
                   {item.name}
                 </h3>
-                <div className="space-y-2 mt-4">
-                  <div className="flex items-center text-gray-600 text-sm">
-                    <span className="w-8 h-8 rounded-full bg-purple-50 flex items-center justify-center mr-3 text-purple-600">
+                
+                <div className="space-y-3">
+                  <div className="flex items-center p-2 rounded-xl bg-slate-50 border border-slate-50 group-hover:border-purple-100 transition-colors">
+                    <span className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center mr-3 text-purple-600">
                       <FaAppleAlt size={14} />
                     </span>
-                    <span className="font-medium">{item.nb}</span>
+                    <span className="text-sm font-bold text-slate-600">{item.nb}</span>
                   </div>
                   
                   {item.weight && item.weight !== "-" && (
-                    <div className="flex items-center text-gray-600 text-sm">
-                      <span className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-3 text-blue-600">
+                    <div className="flex items-center p-2 rounded-xl bg-slate-50 border border-slate-50 group-hover:border-blue-100 transition-colors">
+                      <span className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center mr-3 text-blue-500">
                         <FaWeightHanging size={14} />
                       </span>
-                      <span>Vazni: <strong>{item.weight}</strong></span>
+                      <span className="text-sm text-slate-500 font-medium">Vazni: <b className="text-slate-700">{item.weight}</b></span>
                     </div>
                   )}
 
                   {item.calories && item.calories !== "-" && (
-                    <div className="flex items-center text-gray-600 text-sm">
-                      <span className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center mr-3 text-orange-600">
+                    <div className="flex items-center p-2 rounded-xl bg-slate-50 border border-slate-50 group-hover:border-orange-100 transition-colors">
+                      <span className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center mr-3 text-orange-500">
                         <FaFireAlt size={14} />
                       </span>
-                      <span>Energiya: <strong>{item.calories} kkal</strong></span>
+                      <span className="text-sm text-slate-500 font-medium">Energiya: <b className="text-slate-700">{item.calories} kkal</b></span>
                     </div>
                   )}
                 </div>
@@ -158,51 +160,77 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen font-sans">
-  <Navbar/>
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header & Search */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
-          <div>
-            <h1 className="text-4xl font-black text-gray-900 mb-2">Mahsulotlar Katalogi</h1>
-            <p className="text-gray-500">Sog'lom turmush tarzi uchun mahsulotlar me'yori</p>
+    <div className="bg-slate-50 min-h-screen font-sans">
+      <Navbar />
+      
+      {/* pt-28 orqali Navbar tagiga kirib ketishini to'g'irlaymiz */}
+      <div className="max-w-7xl mx-auto px-4 pt-28 pb-12">
+        
+        {/* Yuqori qism: Sarlavha va Qidiruv */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-8">
+          <div className="animate-in slide-in-from-left duration-700">
+            <span className="px-4 py-1.5 bg-purple-100 text-purple-600 rounded-full text-xs font-black uppercase tracking-widest">Katalog</span>
+            <h1 className="text-5xl font-black text-slate-900 mt-3 mb-2 tracking-tighter">Mahsulotlar</h1>
+            <p className="text-slate-500 text-lg">Sog'lom turmush tarzi uchun mahsulotlar me'yori (1 non birligi bo'yicha)</p>
           </div>
           
-          <div className="relative w-full md:w-96">
-            <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <div className="relative group w-full lg:w-96 animate-in slide-in-from-right duration-700">
+            <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-purple-600 transition-colors" />
             <input
               type="text"
-              placeholder="Mahsulot nomini yozing..."
-              className="w-full pl-12 pr-4 py-3 bg-white border-none shadow-sm rounded-2xl focus:ring-2 focus:ring-purple-500 transition-all outline-none"
+              placeholder="Mahsulotlarni qidirish..."
+              className="w-full pl-14 pr-6 py-4 bg-white border-2 border-transparent shadow-xl shadow-slate-200/50 rounded-2xl focus:border-purple-500 transition-all outline-none font-medium text-slate-700"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
 
-        {/* Sections */}
-        {renderSection("🌾 Dukkakliklar va Sabzavotlar", categories.dukkaklik)}
-        {renderSection("🍞 Non va Xamirli Mahsulotlar", categories.nonlik)}
-        {renderSection("🍎 Sarhil Mevalar", categories.mevaSabzavot)}
-        {renderSection("🥜 Quritilgan Mevalar va Yong'oqlar", categories.quritilgan)}
-        {renderSection("🍰 Shirinliklar va Ichimliklar", categories.shirinlik)}
+        {/* Kategoriyalar Filteri (Chips) */}
+        <div className="flex items-center gap-3 overflow-x-auto pb-6 no-scrollbar animate-in fade-in duration-1000">
+          <div className="p-3 bg-white rounded-xl shadow-sm border border-slate-100 text-slate-400">
+            <FaFilter size={14} />
+          </div>
+          {Object.keys(categoryLabels).map((key) => (
+            <button
+              key={key}
+              onClick={() => setActiveTab(key)}
+              className={`px-6 py-3 rounded-xl text-sm font-black whitespace-nowrap transition-all duration-300 ${
+                activeTab === key 
+                ? "bg-purple-600 text-white shadow-lg shadow-purple-200 -translate-y-1" 
+                : "bg-white text-slate-500 hover:bg-slate-100 border border-slate-100"
+              }`}
+            >
+              {categoryLabels[key]}
+            </button>
+          ))}
+        </div>
 
-        {/* Empty State */}
+        {/* Kontent */}
+        <div className="mt-8">
+          {renderSection("dukkaklik", "🌾 Dukkakliklar va Sabzavotlar", categories.dukkaklik)}
+          {renderSection("nonlik", "🍞 Non va Xamirli Mahsulotlar", categories.nonlik)}
+          {renderSection("mevaSabzavot", "🍎 Sarhil Mevalar", categories.mevaSabzavot)}
+          {renderSection("quritilgan", "🥜 Quritilgan Mevalar va Yong'oqlar", categories.quritilgan)}
+          {renderSection("shirinlik", "🍰 Shirinliklar va Ichimliklar", categories.shirinlik)}
+        </div>
+
+        {/* Bo'sh holat */}
         {Object.values(categories).every(cat => 
           cat.filter(i => i.name.toLowerCase().includes(search.toLowerCase())).length === 0
         ) && (
-          <div className="text-center py-20">
-            <div className="bg-gray-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-500">
-              <FaSearch size={30} />
+          <div className="text-center py-24 bg-white rounded-3xl border-2 border-dashed border-slate-200 animate-in zoom-in duration-500">
+            <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300">
+              <FaSearch size={40} />
             </div>
-            <h3 className="text-xl font-bold text-gray-800">Mahsulot topilmadi</h3>
-            <p className="text-gray-500">Qidiruv so'zini o'zgartirib ko'ring</p>
+            <h3 className="text-2xl font-black text-slate-800">Hech narsa topilmadi</h3>
+            <p className="text-slate-500 mt-2">Qidiruv so'zini o'zgartiring yoki boshqa kategoriyani tanlang</p>
           </div>
         )}
       </div>
 
-      <footer className="text-center py-10 text-gray-400 text-sm">
-        &copy; 2026 DiaCare - Sog'liqni saqlash platformasi
+      <footer className="text-center py-12 text-slate-400 text-sm font-medium border-t border-slate-100 bg-white mt-10">
+        &copy; 2026 <span className="text-purple-600 font-bold">DiaCare</span> - Sog'liqni saqlash platformasi
       </footer>
     </div>
   );
