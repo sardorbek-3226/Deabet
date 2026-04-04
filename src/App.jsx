@@ -14,11 +14,15 @@ import DoctorConsultation from "./pages/DoctorConsutatsion";
 import DoctorChat from "./pages/DoctorChat";
 import Checkout from "./pages/Checkout";
 import QandPage from "./pages/QandPage";
-import TestPage from "./pages/TestPage";
-import InsulinPage from "./pages/InsulinPage";
+import TestPage from "./pages/RoutinePage";
+import InsulinPage from "./pages/StatikaPage";
 import HealthPage from "./pages/HealthPage";
 import EmergencyHealthPage from "./pages/EmergencyHealthPage";
 import Profile from "./pages/Profile";
+import OvqatPage from "./pages/OvqatPage";
+import StatistikaPage from "./pages/StatikaPage";
+import FitnessPage from "./pages/FitnessPage";
+import RoutinePage from "./pages/RoutinePage";
 function App() {
   return (
     <BrowserRouter>
@@ -37,10 +41,14 @@ function App() {
           <Route path="/doctorChat/:id" element={<DoctorChat />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/qand" element={<QandPage />} /> 
-          <Route path="/insulin" element={<InsulinPage />} /> 
           <Route path="/salomatlik" element={<HealthPage />} />
           <Route path="/favqulot" element={<EmergencyHealthPage />} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/qand" element={<QandPage />} />
+<Route path="/ovqat" element={<OvqatPage />} />
+<Route path="/insulin" element={<StatistikaPage />} />
+<Route path="/fitness" element={<FitnessPage />} />
+<Route path="/test" element={<RoutinePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
